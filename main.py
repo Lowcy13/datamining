@@ -111,6 +111,25 @@ else:
 
                     # Probabilitas
                     st.write("**📊 Probabilitas:**")
-                    col1, col2 = st.columns(2)
+                    col1, col2, col3 = st.columns(3)
                     with col1:
-                        st.metric("Negatif", f"{prob_ensemble[0]*100:.1f}%")
+                        st.metric("Negatif", f"{prob_ensemble[0] * 100:.1f}%")
+                    with col2:
+                        st.metric("Netral", f"{prob_ensemble[1] * 100:.1f}%")
+                    with col3:
+                        st.metric("Positif", f"{prob_ensemble[2] * 100:.1f}%")
+
+                    # Tampilkan detail preprocessing
+                    if show_details:
+                        st.subheader("🔧 Detail Preprocessing")
+                        st.code(processed)
+
+                    # Bandingkan model
+                    if show_comparison:
+                        st.subheader("📌 Perbandingan Prediksi Model")
+                        st.write(f"**BernoulliNB:** {pred_bnb}")
+                        st.write(f"**SVM:** {pred_svm}")
+                        st.write(f"**Ensemble:** {pred_ensemble}")
+
+                except Exception as e:
+                    st.error(f"❌ Terjadi error: {e}")
